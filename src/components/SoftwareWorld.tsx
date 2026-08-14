@@ -11,23 +11,7 @@ interface SoftwareWorldProps {
 export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
 
-    const handleWheelRaw = (e: WheelEvent) => {
-      if (e.deltaY !== 0) {
-        e.preventDefault();
-        e.stopPropagation(); // Block scroll bubbling to Lenis
-        container.scrollLeft += e.deltaY * 1.2;
-      }
-    };
-
-    container.addEventListener('wheel', handleWheelRaw, { passive: false });
-    return () => {
-      container.removeEventListener('wheel', handleWheelRaw);
-    };
-  }, []);
 
   return (
     <section
