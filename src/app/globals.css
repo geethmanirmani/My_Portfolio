@@ -17,7 +17,7 @@
   --bg-glass: rgba(10, 10, 15, 0.75);
   --shadow-glow: 0 0 35px rgba(189, 0, 255, 0.15);
   
-  --font-heading: var(--font-cormorant), serif;
+  --font-heading: var(--font-heading-sans), sans-serif;
   --font-body: var(--font-manrope), sans-serif;
 }
 

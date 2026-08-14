@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { Cormorant_Garamond, Manrope } from 'next/font/google';
+import { Plus_Jakarta_Sans, Manrope } from 'next/font/google';
 import { LenisProvider } from '@/components/LenisProvider';
 import './globals.css';
 
-const cormorant = Cormorant_Garamond({
+const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
-  weight: ['300', '500', '600'],
-  variable: '--font-cormorant',
+  weight: ['500', '600', '700', '800'],
+  variable: '--font-heading-sans',
   display: 'swap',
 });
 
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${manrope.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${plusJakartaSans.variable} ${manrope.variable}`} suppressHydrationWarning>
       <body className="antialiased">
         <LenisProvider>
           {children}
