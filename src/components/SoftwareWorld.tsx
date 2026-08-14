@@ -16,12 +16,9 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
     if (!container) return;
 
     const handleWheelRaw = (e: WheelEvent) => {
-      const isAtEnd = container.scrollLeft >= container.scrollWidth - container.clientWidth - 5;
-      const isAtStart = container.scrollLeft <= 5;
-      
-      if (!(e.deltaY > 0 && isAtEnd) && !(e.deltaY < 0 && isAtStart)) {
+      if (e.deltaY !== 0) {
         e.preventDefault();
-        e.stopPropagation(); // Prevent scroll bubbling to Lenis
+        e.stopPropagation(); // Block scroll bubbling to Lenis
         container.scrollLeft += e.deltaY * 1.2;
       }
     };
@@ -124,7 +121,10 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
               cursor: 'pointer',
               transition: 'transform 0.1s ease-out, border-color 0.3s ease, box-shadow 0.3s ease',
               background: 'var(--bg-tertiary)',
-              border: '1.5px solid var(--border-glass)'
+              border: '1.5px solid var(--border-glass)',
+              backfaceVisibility: 'hidden',
+              WebkitBackfaceVisibility: 'hidden',
+              willChange: 'transform'
             }}
             onMouseMove={(e) => {
               const el = e.currentTarget as HTMLElement;
@@ -133,11 +133,10 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
               const y = e.clientY - rect.top;
               const xc = rect.width / 2;
               const yc = rect.height / 2;
-              const angle = 8; // max rotation degrees
-              const rotX = ((yc - y) / yc) * angle;
-              const rotY = ((x - xc) / xc) * angle;
+              const rotX = (yc - y) / 10;
+              const rotY = (x - xc) / 10;
               
-              el.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.01, 1.01, 1.01) translateY(-4px)`;
+              el.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.01, 1.01, 1.01)`;
               el.style.borderColor = 'var(--accent-pink)';
               el.style.boxShadow = '0 15px 35px rgba(255, 0, 122, 0.08)';
 

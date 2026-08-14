@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, Download } from 'lucide-react';
 
 interface NavbarProps {
@@ -8,6 +8,7 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   const menuItems = [
     { label: 'HOME', id: 'home' },
@@ -17,6 +18,42 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
     { label: 'EXPERIENCE', id: 'experience' },
     { label: 'CONTACT', id: 'contact' }
   ];
+
+  useEffect(() => {
+    const observerOptions = {
+      root: null,
+      rootMargin: '-35% 0px -55% 0px', // Trigger when section crosses middle third of viewport
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // If experience-timeline is visible, treat as experience
+          if (entry.target.id === 'experience-timeline') {
+            setActiveSection('experience');
+          } else {
+            setActiveSection(entry.target.id);
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    const sections = ['home', 'about', 'creative', 'software', 'experience', 'experience-timeline', 'contact'];
+    sections.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => {
+      sections.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) observer.unobserve(element);
+      });
+    };
+  }, []);
 
   const handleMenuClick = (id: string) => {
     setIsOpen(false);
@@ -65,26 +102,47 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           }}
           className="desktop-links"
         >
-          {menuItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => handleMenuClick(item.id)}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--text-secondary)',
-                fontSize: '0.78rem',
-                fontWeight: 700,
-                letterSpacing: '0.15em',
-                cursor: 'pointer',
-                transition: 'color 0.3s ease'
-              }}
-              onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'var(--accent-pink)'}
-              onMouseLeave={(e) => (e.target as HTMLElement).style.color = 'var(--text-secondary)'}
-            >
-              {item.label}
-            </button>
-          ))}
+          {menuItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <div key={item.id} style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <button
+                  onClick={() => handleMenuClick(item.id)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    color: isActive ? 'var(--text-primary)' : 'var(--text-secondary)',
+                    fontSize: '0.78rem',
+                    fontWeight: 700,
+                    letterSpacing: '0.15em',
+                    cursor: 'pointer',
+                    padding: '4px 0',
+                    transition: 'color 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'var(--accent-pink)'}
+                  onMouseLeave={(e) => (e.target as HTMLElement).style.color = isActive ? 'var(--text-primary)' : 'var(--text-secondary)'}
+                >
+                  {item.label}
+                </button>
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '-4px',
+                    left: '0',
+                    width: '100%',
+                    height: '2px',
+                    background: 'var(--accent-pink)',
+                    boxShadow: '0 0 10px var(--accent-pink)',
+                    borderRadius: '2px',
+                    transform: isActive ? 'scaleX(1)' : 'scaleX(0)',
+                    transformOrigin: 'center',
+                    transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease',
+                    opacity: isActive ? 1 : 0
+                  }}
+                />
+              </div>
+            );
+          })}
         </nav>
 
         {/* Right Side: Download CV Button - Desktop Only */}

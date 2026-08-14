@@ -21,6 +21,11 @@ export const Hero: React.FC<HeroProps> = ({ onEnter }) => {
         paddingTop: '100px'
       }}
     >
+      {/* Floating neon animated blobs */}
+      <div className="bg-blob-1" style={{ top: '15%', left: '10%' }} />
+      <div className="bg-blob-2" style={{ bottom: '20%', right: '10%' }} />
+      <div className="bg-blob-3" style={{ top: '55%', left: '35%' }} />
+
       {/* Decorative subtle neon meshes */}
       <div 
         className="ambient-glow" 
@@ -128,8 +133,8 @@ export const Hero: React.FC<HeroProps> = ({ onEnter }) => {
           <div
             style={{
               position: 'absolute',
-              width: '320px',
-              height: '320px',
+              width: '410px',
+              height: '410px',
               borderRadius: '50%',
               border: '2px dashed rgba(255, 0, 122, 0.4)',
               animation: 'spin 50s linear infinite',
@@ -139,8 +144,8 @@ export const Hero: React.FC<HeroProps> = ({ onEnter }) => {
           <div
             style={{
               position: 'absolute',
-              width: '280px',
-              height: '280px',
+              width: '360px',
+              height: '360px',
               borderRadius: '50%',
               background: 'radial-gradient(circle, rgba(189, 0, 255, 0.18) 0%, transparent 70%)',
               filter: 'blur(10px)',
@@ -149,8 +154,8 @@ export const Hero: React.FC<HeroProps> = ({ onEnter }) => {
           />
           <div
             style={{
-              width: '280px',
-              height: '280px',
+              width: '360px',
+              height: '360px',
               borderRadius: '50%',
               overflow: 'hidden',
               border: '3px solid rgba(255, 255, 255, 0.08)',

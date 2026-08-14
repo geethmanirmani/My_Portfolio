@@ -37,43 +37,44 @@ export const About: React.FC = () => {
         className="about-grid"
       >
         {/* Left Side: Photo Frame */}
-        <div style={{ display: 'flex', justifyContent: 'center', position: 'relative' }}>
-          <div
-            style={{
-              position: 'absolute',
-              top: '-15px',
-              left: '-15px',
-              width: '100%',
-              height: '100%',
-              border: '1.5px solid var(--accent-pink)',
-              boxShadow: '0 0 20px rgba(255,0,122,0.15)',
-              borderRadius: '24px',
-              zIndex: 0
-            }}
-          />
-          <div
-            className="glass"
-            style={{
-              width: '100%',
-              maxWidth: '350px',
-              borderRadius: '24px',
-              overflow: 'hidden',
-              boxShadow: 'var(--shadow-glow)',
-              position: 'relative',
-              zIndex: 1
-            }}
-          >
-            <Image 
-              src={profileImg} 
-              alt="Geethma Nirmani Biography Portrait" 
-              placeholder="blur"
+        <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div style={{ position: 'relative', width: '100%', maxWidth: '350px' }}>
+            <div
+              className="glowing-frame"
               style={{
-                width: '100%',
-                height: 'auto',
-                display: 'block',
-                filter: 'grayscale(10%) contrast(102%)'
+                position: 'absolute',
+                top: '-12px',
+                left: '-12px',
+                width: 'calc(100% + 24px)',
+                height: 'calc(100% + 24px)',
+                border: '2px solid rgba(255, 0, 122, 0.6)',
+                borderRadius: '24px',
+                zIndex: 0
               }}
             />
+            <div
+              className="glass"
+              style={{
+                width: '100%',
+                borderRadius: '24px',
+                overflow: 'hidden',
+                boxShadow: 'var(--shadow-glow)',
+                position: 'relative',
+                zIndex: 1
+              }}
+            >
+              <Image 
+                src={profileImg} 
+                alt="Geethma Nirmani Biography Portrait" 
+                placeholder="blur"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                  display: 'block',
+                  filter: 'grayscale(15%) contrast(102%)'
+                }}
+              />
+            </div>
           </div>
         </div>
 

@@ -144,6 +144,7 @@ section {
   }
 }
 
+/* Ambient Pulsing Glow */
 .ambient-glow {
   position: absolute;
   width: 45vw;
@@ -153,6 +154,58 @@ section {
   z-index: 0;
   pointer-events: none;
   animation: pulseGlow 10s ease-in-out infinite alternate;
+}
+
+/* Floating Background Blobs */
+.bg-blob-1 {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(255, 0, 122, 0.08) 0%, transparent 70%);
+  filter: blur(50px);
+  z-index: 0;
+  pointer-events: none;
+  animation: float-blob-1 25s ease-in-out infinite alternate;
+}
+
+.bg-blob-2 {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.07) 0%, transparent 70%);
+  filter: blur(60px);
+  z-index: 0;
+  pointer-events: none;
+  animation: float-blob-2 30s ease-in-out infinite alternate;
+}
+
+.bg-blob-3 {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(189, 0, 255, 0.07) 0%, transparent 70%);
+  filter: blur(45px);
+  z-index: 0;
+  pointer-events: none;
+  animation: float-blob-3 22s ease-in-out infinite alternate;
+}
+
+@keyframes float-blob-1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(80px, -60px) scale(1.12); }
+  100% { transform: translate(-40px, 30px) scale(0.92); }
+}
+
+@keyframes float-blob-2 {
+  0% { transform: translate(0, 0) scale(1.05); }
+  50% { transform: translate(-60px, 90px) scale(0.88); }
+  100% { transform: translate(50px, -50px) scale(1.08); }
+}
+
+@keyframes float-blob-3 {
+  0% { transform: translate(0, 0) scale(0.96); }
+  50% { transform: translate(90px, 50px) scale(1.08); }
+  100% { transform: translate(-30px, -80px) scale(1); }
 }
 
 /* Flow line animations */
@@ -176,6 +229,22 @@ section {
   border: 1px solid var(--border-glass);
   transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1;
+}
+
+/* Glowing Frame Animation */
+@keyframes frame-glow {
+  0%, 100% {
+    border-color: rgba(255, 0, 122, 0.6);
+    box-shadow: 0 0 15px rgba(255, 0, 122, 0.3), inset 0 0 8px rgba(255, 0, 122, 0.15);
+  }
+  50% {
+    border-color: rgba(255, 0, 122, 1);
+    box-shadow: 0 0 35px rgba(255, 0, 122, 0.8), inset 0 0 18px rgba(255, 0, 122, 0.4);
+  }
+}
+
+.glowing-frame {
+  animation: frame-glow 3.5s infinite ease-in-out;
 }
 
 /* Horizontal projects hide scrollbar */
