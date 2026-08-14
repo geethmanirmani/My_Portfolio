@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Download } from 'lucide-react';
 
 interface NavbarProps {
   onNavigate: (sectionId: string) => void;
@@ -10,12 +10,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const menuItems = [
-    { label: '01 — HOME', id: 'home' },
-    { label: '02 — ABOUT', id: 'about' },
-    { label: '03 — CREATIVE', id: 'creative' },
-    { label: '04 — SOFTWARE', id: 'software' },
-    { label: '05 — EXPERIENCE', id: 'experience' },
-    { label: '06 — CONTACT', id: 'contact' }
+    { label: 'HOME', id: 'home' },
+    { label: 'ABOUT', id: 'about' },
+    { label: 'CREATIVE', id: 'creative' },
+    { label: 'SOFTWARE', id: 'software' },
+    { label: 'EXPERIENCE', id: 'experience' },
+    { label: 'CONTACT', id: 'contact' }
   ];
 
   const handleMenuClick = (id: string) => {
@@ -26,6 +26,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   return (
     <>
       <header 
+        className="glass"
         style={{
           position: 'fixed',
           top: 0,
@@ -34,16 +35,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '24px 8%',
+          padding: '16px 8%',
           zIndex: 990,
-          mixBlendMode: isOpen ? 'normal' : 'difference',
-          transition: 'all 0.3s ease'
+          borderBottom: '1px solid var(--border-glass)',
+          background: 'rgba(10, 9, 8, 0.82)'
         }}
       >
+        {/* Left Side: Logo */}
         <span 
           style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: '1.5rem',
+            fontSize: '1.45rem',
             fontWeight: 500,
             letterSpacing: '0.1em',
             cursor: 'pointer',
@@ -54,181 +56,164 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           GEETHMA
         </span>
 
-        <button
-          onClick={() => setIsOpen(!isOpen)}
+        {/* Center Links - Desktop Only */}
+        <nav 
           style={{
-            background: 'none',
-            border: 'none',
-            color: 'var(--text-primary)',
-            cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',
-            gap: '8px',
-            fontSize: '0.85rem',
-            fontWeight: 600,
-            letterSpacing: '0.2em',
-            padding: '8px 16px',
-            borderRadius: '20px',
-            transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+            gap: '24px'
           }}
-          className="glass"
+          className="desktop-links"
         >
-          {isOpen ? (
-            <>
-              CLOSE <X size={16} />
-            </>
-          ) : (
-            <>
-              MENU <Menu size={16} />
-            </>
-          )}
-        </button>
+          {menuItems.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => handleMenuClick(item.id)}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--text-secondary)',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                letterSpacing: '0.15em',
+                cursor: 'pointer',
+                transition: 'color 0.3s ease'
+              }}
+              onMouseEnter={(e) => (e.target as HTMLElement).style.color = 'var(--accent-pink)'}
+              onMouseLeave={(e) => (e.target as HTMLElement).style.color = 'var(--text-secondary)'}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+
+        {/* Right Side: Download CV Button - Desktop Only */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }} className="nav-right">
+          <a
+            href="/resume.pdf"
+            download="Geethma_Nirmani_Resume.pdf"
+            style={{
+              textDecoration: 'none',
+              background: 'var(--accent-pink)',
+              color: 'var(--bg-primary)',
+              fontWeight: 700,
+              fontSize: '0.75rem',
+              letterSpacing: '0.1em',
+              padding: '10px 20px',
+              borderRadius: '20px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '8px',
+              boxShadow: '0 8px 20px rgba(255, 0, 122, 0.15)',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 12px 24px rgba(255, 0, 122, 0.25)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 8px 20px rgba(255, 0, 122, 0.15)';
+            }}
+          >
+            <Download size={14} /> DOWNLOAD CV
+          </a>
+
+          {/* Hamburger trigger - Mobile Only */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--text-primary)',
+              cursor: 'pointer',
+              display: 'none',
+              alignItems: 'center',
+              padding: '6px'
+            }}
+            className="mobile-trigger"
+          >
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </header>
 
-      {/* Fullscreen Double Sliding Doors Menu */}
+      {/* Mobile Slide-down Overlay */}
       <div
+        className="glass"
         style={{
           position: 'fixed',
-          top: 0,
+          top: isOpen ? '73px' : '-100%',
           left: 0,
-          width: '100vw',
-          height: '100vh',
+          width: '100%',
           zIndex: 980,
-          pointerEvents: isOpen ? 'all' : 'none',
-          overflow: 'hidden',
-          display: 'flex'
+          borderBottom: '1px solid var(--border-glass)',
+          background: 'rgba(10, 9, 8, 0.95)',
+          padding: '30px 8%',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '20px',
+          transition: 'top 0.5s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
       >
-        {/* Left Shutter Door Panel */}
-        <div
-          className="door-panel"
-          style={{
-            left: 0,
-            width: '50vw',
-            transform: isOpen ? 'translateX(0)' : 'translateX(-100%)',
-            background: 'linear-gradient(135deg, #050508 0%, #0a0a0f 100%)',
-            borderRight: '1px solid rgba(255, 0, 122, 0.1)'
-          }}
-        />
+        {menuItems.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => handleMenuClick(item.id)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--text-primary)',
+              textAlign: 'left',
+              fontSize: '1rem',
+              fontWeight: 700,
+              letterSpacing: '0.1em',
+              cursor: 'pointer',
+              padding: '10px 0'
+            }}
+          >
+            {item.label}
+          </button>
+        ))}
 
-        {/* Right Shutter Door Panel */}
-        <div
-          className="door-panel"
+        <a
+          href="/resume.pdf"
+          download="Geethma_Nirmani_Resume.pdf"
+          onClick={() => setIsOpen(false)}
           style={{
-            right: 0,
-            width: '50vw',
-            transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
-            background: 'linear-gradient(135deg, #0a0a0f 0%, #050508 100%)',
-            borderLeft: '1px solid rgba(0, 240, 255, 0.1)'
-          }}
-        />
-
-        {/* Menu Content (fades in as doors meet) */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: 2,
+            textDecoration: 'none',
+            background: 'var(--accent-pink)',
+            color: 'var(--bg-primary)',
+            fontWeight: 700,
+            fontSize: '0.85rem',
+            letterSpacing: '0.15em',
+            padding: '14px',
+            borderRadius: '10px',
+            textAlign: 'center',
             display: 'flex',
-            flexDirection: 'column',
+            alignItems: 'center',
             justifyContent: 'center',
-            padding: '0 8%',
-            opacity: isOpen ? 1 : 0,
-            transition: 'opacity 0.5s ease',
-            transitionDelay: isOpen ? '0.4s' : '0s',
-            pointerEvents: isOpen ? 'all' : 'none'
+            gap: '8px',
+            marginTop: '10px'
           }}
         >
-          {/* Ambient Glows */}
-          <div 
-            className="ambient-glow" 
-            style={{ 
-              background: 'radial-gradient(circle, rgba(189,0,255,0.08) 0%, transparent 60%)',
-              top: '20%',
-              left: '20%'
-            }} 
-          />
-          <div 
-            className="ambient-glow" 
-            style={{ 
-              background: 'radial-gradient(circle, rgba(0,240,255,0.06) 0%, transparent 60%)',
-              bottom: '20%',
-              right: '20%'
-            }} 
-          />
-
-          <nav 
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '20px',
-              position: 'relative',
-              zIndex: 1
-            }}
-          >
-            {menuItems.map((item, idx) => (
-              <div 
-                key={item.id}
-                style={{
-                  overflow: 'hidden'
-                }}
-              >
-                <button
-                  onClick={() => handleMenuClick(item.id)}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    color: 'var(--text-primary)',
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-                    fontWeight: 500,
-                    cursor: 'pointer',
-                    textAlign: 'left',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.02em',
-                    transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-                    transform: isOpen ? 'translateY(0)' : 'translateY(100%)',
-                    transitionDelay: isOpen ? `${0.4 + idx * 0.05}s` : '0s'
-                  }}
-                  onMouseEnter={(e) => {
-                    (e.target as HTMLElement).style.paddingLeft = '20px';
-                    (e.target as HTMLElement).style.color = 'var(--accent-pink)';
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.target as HTMLElement).style.paddingLeft = '0px';
-                    (e.target as HTMLElement).style.color = 'var(--text-primary)';
-                  }}
-                >
-                  {item.label}
-                </button>
-              </div>
-            ))}
-          </nav>
-
-          <div
-            style={{
-              position: 'absolute',
-              bottom: '40px',
-              left: '8%',
-              right: '8%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              borderTop: '1px solid var(--border-glass)',
-              paddingTop: '20px',
-              fontSize: '0.75rem',
-              color: 'var(--text-secondary)',
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase'
-            }}
-          >
-            <span>GEETHMA NIRMANI — PORTFOLIO</span>
-            <span>© 2026 SRI LANKA</span>
-          </div>
-        </div>
+          <Download size={16} /> DOWNLOAD CV
+        </a>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .desktop-links {
+            display: none !important;
+          }
+          .mobile-trigger {
+            display: flex !important;
+          }
+          .nav-right a {
+            display: none !important;
+          }
+        }
+      `}</style>
     </>
   );
 };
