@@ -315,7 +315,6 @@ export const CreativeWorld: React.FC = () => {
       {/* Horizontal Scroll Track */}
       <div
         ref={scrollRef}
-        data-lenis-prevent
         style={{
           display: 'flex',
           gap: '30px',

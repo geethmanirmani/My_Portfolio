@@ -63,7 +63,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   return (
     <>
       <header 
-        className="glass"
         style={{
           position: 'fixed',
           top: 0,
@@ -75,7 +74,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           padding: '16px 8%',
           zIndex: 990,
           borderBottom: '1px solid var(--border-glass)',
-          background: 'rgba(10, 9, 8, 0.82)'
+          background: 'rgba(10, 9, 8, 0.82)',
+          backdropFilter: 'blur(15px)',
+          WebkitBackdropFilter: 'blur(15px)',
+          willChange: 'transform',
+          transform: 'translate3d(0, 0, 0)'
         }}
       >
         {/* Left Side: Logo */}
@@ -198,7 +201,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
 
       {/* Mobile Slide-down Overlay */}
       <div
-        className="glass"
         style={{
           position: 'fixed',
           top: isOpen ? '73px' : '-100%',
@@ -206,7 +208,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
           width: '100%',
           zIndex: 980,
           borderBottom: '1px solid var(--border-glass)',
-          background: 'rgba(10, 9, 8, 0.95)',
+          background: '#0a0908',
           padding: '30px 8%',
           display: 'flex',
           flexDirection: 'column',

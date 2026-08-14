@@ -76,7 +76,6 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
       {/* Software Projects Horizontal Scroll Container */}
       <div
         ref={scrollRef}
-        data-lenis-prevent
         style={{
           display: 'flex',
           gap: '40px',
