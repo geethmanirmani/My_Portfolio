@@ -1,12 +1,14 @@
 "use client";
-import React from 'react';
-import { Mail, ArrowUpRight, Briefcase } from 'lucide-react';
+import React, { useState } from 'react';
+import { Mail, ArrowUpRight, Briefcase, Copy, Check } from 'lucide-react';
 
 interface ContactProps {
   onScrollToTop: () => void;
 }
 
 export const Contact: React.FC<ContactProps> = ({ onScrollToTop }) => {
+  const [copied, setCopied] = useState(false);
+
   const opportunityTags = [
     'CREATIVE PROJECTS',
     'SOFTWARE PROJECTS',
@@ -15,8 +17,14 @@ export const Contact: React.FC<ContactProps> = ({ onScrollToTop }) => {
     'NEW OPPORTUNITIES'
   ];
 
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText('geethmanirmani2601@gmail.com');
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
+  };
+
   return (
-    <section 
+    <section
       id="contact"
       style={{
         background: 'var(--bg-primary)',
@@ -29,13 +37,13 @@ export const Contact: React.FC<ContactProps> = ({ onScrollToTop }) => {
         position: 'relative'
       }}
     >
-      <div 
-        className="ambient-glow" 
-        style={{ 
+      <div
+        className="ambient-glow"
+        style={{
           background: 'radial-gradient(circle, rgba(189,0,255,0.06) 0%, transparent 60%)',
           bottom: '0%',
           left: '25%'
-        }} 
+        }}
       />
 
       {/* Main CTA */}
@@ -53,7 +61,7 @@ export const Contact: React.FC<ContactProps> = ({ onScrollToTop }) => {
         }}
       >
         <span style={{ fontSize: '0.8rem', letterSpacing: '0.3em', color: 'var(--accent-cyan)', fontWeight: 700 }}>
-          09 — GET IN TOUCH
+          07 — GET IN TOUCH
         </span>
 
         {/* Large Cinematic Statement */}
@@ -73,11 +81,11 @@ export const Contact: React.FC<ContactProps> = ({ onScrollToTop }) => {
 
         {/* Subtext opportunities */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
-          <span 
-            style={{ 
-              fontSize: '0.75rem', 
-              fontWeight: 700, 
-              color: 'var(--text-secondary)', 
+          <span
+            style={{
+              fontSize: '0.75rem',
+              fontWeight: 700,
+              color: 'var(--text-secondary)',
               letterSpacing: '0.2em',
               display: 'flex',
               alignItems: 'center',
@@ -106,39 +114,67 @@ export const Contact: React.FC<ContactProps> = ({ onScrollToTop }) => {
           </div>
         </div>
 
-        {/* Giant Email button */}
-        <a
-          href="mailto:geethmanirmani2601@gmail.com"
-          style={{
-            marginTop: '20px',
-            textDecoration: 'none',
-            color: 'var(--bg-primary)',
-            background: 'var(--accent-pink)',
-            fontWeight: 700,
-            fontSize: 'clamp(1rem, 2vw, 1.15rem)',
-            letterSpacing: '0.15em',
-            padding: '20px 48px',
-            borderRadius: '40px',
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '12px',
-            boxShadow: '0 10px 30px rgba(255, 0, 122, 0.2)',
-            transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.transform = 'translateY(-4px)';
-            e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 240, 255, 0.35)';
-            e.currentTarget.style.background = 'var(--accent-cyan)';
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 10px 30px rgba(255, 0, 122, 0.2)';
-            e.currentTarget.style.background = 'var(--accent-pink)';
-          }}
-        >
-          <Mail size={18} />
-          EMAIL ME <ArrowUpRight size={16} />
-        </a>
+        {/* Dual Email CTA Buttons */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '16px', marginTop: '10px' }}>
+          {/* Direct Gmail Web Link */}
+          <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=geethmanirmani2601@gmail.com&su=Inquiry%20from%20Portfolio%20Website"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              textDecoration: 'none',
+              color: 'var(--bg-primary)',
+              background: 'var(--accent-pink)',
+              fontWeight: 700,
+              fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
+              letterSpacing: '0.12em',
+              padding: '18px 36px',
+              borderRadius: '40px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              boxShadow: '0 10px 30px rgba(255, 0, 122, 0.2)',
+              transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 15px 35px rgba(0, 240, 255, 0.35)';
+              e.currentTarget.style.background = 'var(--accent-cyan)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 10px 30px rgba(255, 0, 122, 0.2)';
+              e.currentTarget.style.background = 'var(--accent-pink)';
+            }}
+          >
+            <Mail size={18} />
+            EMAIL ME <ArrowUpRight size={16} />
+          </a>
+
+          {/* Copy Email Button */}
+          <button
+            onClick={handleCopyEmail}
+            className="glass"
+            style={{
+              background: 'rgba(255,255,255,0.03)',
+              border: copied ? '1px solid #10b981' : '1px solid var(--border-glass)',
+              color: copied ? '#10b981' : 'var(--text-primary)',
+              fontWeight: 700,
+              fontSize: 'clamp(0.9rem, 1.8vw, 1.05rem)',
+              letterSpacing: '0.12em',
+              padding: '18px 32px',
+              borderRadius: '40px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '10px',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease'
+            }}
+          >
+            {copied ? <Check size={18} /> : <Copy size={18} />}
+            {copied ? 'EMAIL COPIED!' : 'COPY EMAIL'}
+          </button>
+        </div>
       </div>
 
       {/* Footer Info */}
@@ -176,20 +212,20 @@ export const Contact: React.FC<ContactProps> = ({ onScrollToTop }) => {
           </div>
 
           <div style={{ display: 'flex', gap: '20px' }}>
-            <a 
-              href="https://linkedin.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://www.linkedin.com/in/geethma-nirmani-90758634a/"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ color: 'var(--text-muted)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.3s' }}
               onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-pink)'}
               onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
             >
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg> LINKEDIN
             </a>
-            <a 
-              href="https://github.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+            <a
+              href="https://github.com/geethmanirmani"
+              target="_blank"
+              rel="noopener noreferrer"
               style={{ color: 'var(--text-muted)', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '4px', transition: 'color 0.3s' }}
               onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-cyan)'}
               onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
@@ -211,8 +247,8 @@ export const Contact: React.FC<ContactProps> = ({ onScrollToTop }) => {
         >
           <span>SRI LANKA</span>
           <span>© 2026 GEETHMA NIRMANI. ALL RIGHTS RESERVED.</span>
-          <span 
-            onClick={onScrollToTop} 
+          <span
+            onClick={onScrollToTop}
             style={{ cursor: 'pointer', fontWeight: 700, color: 'var(--accent-pink)' }}
           >
             BACK TO TOP ↑

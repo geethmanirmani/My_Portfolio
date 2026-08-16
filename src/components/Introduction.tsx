@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Introduction: React.FC = () => {
   return (
-    <section 
+    <section
       id="intro"
       style={{
         minHeight: '75vh',
@@ -13,13 +13,13 @@ export const Introduction: React.FC = () => {
         position: 'relative'
       }}
     >
-      <div 
-        className="ambient-glow" 
-        style={{ 
+      <div
+        className="ambient-glow"
+        style={{
           background: 'radial-gradient(circle, rgba(201,168,118,0.06) 0%, transparent 60%)',
           top: '-10%',
           right: '5%'
-        }} 
+        }}
       />
 
       <div
@@ -70,18 +70,6 @@ export const Introduction: React.FC = () => {
             I <span style={{ color: 'var(--accent-cyan)', fontWeight: 500 }}>EXPLORE</span>.
           </h2>
         </div>
-
-        <p
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(1.1rem, 2.5vw, 1.45rem)',
-            lineHeight: 1.6,
-            fontWeight: 300,
-            color: 'var(--text-secondary)'
-          }}
-        >
-          I'm <strong style={{ color: 'var(--text-primary)', fontWeight: 600 }}>Geethma Nirmani</strong>, an undergraduate exploring the intersection of management, technology and creativity. I enjoy turning ideas into practical digital solutions while exploring visual storytelling and creative work.
-        </p>
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
-import profileImg from '../assets/profile.png';
+import profileImg from '../assets/profile.jpg';
 import { Quote } from 'lucide-react';
 
 export const About: React.FC = () => {
@@ -18,13 +18,13 @@ export const About: React.FC = () => {
         paddingTop: '100px'
       }}
     >
-      <div 
-        className="ambient-glow" 
-        style={{ 
+      <div
+        className="ambient-glow"
+        style={{
           background: 'radial-gradient(circle, rgba(189,0,255,0.06) 0%, transparent 60%)',
           top: '20%',
           right: '10%'
-        }} 
+        }}
       />
 
       <div
@@ -63,15 +63,14 @@ export const About: React.FC = () => {
                 zIndex: 1
               }}
             >
-              <Image 
-                src={profileImg} 
-                alt="Geethma Nirmani Biography Portrait" 
+              <Image
+                src={profileImg}
+                alt="Geethma Nirmani Biography Portrait"
                 placeholder="blur"
                 style={{
                   width: '100%',
                   height: 'auto',
-                  display: 'block',
-                  filter: 'grayscale(15%) contrast(102%)'
+                  display: 'block'
                 }}
               />
             </div>
@@ -83,7 +82,7 @@ export const About: React.FC = () => {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <span style={{ fontSize: '0.8rem', letterSpacing: '0.3em', color: 'var(--accent-cyan)', fontWeight: 700 }}>02 — IDENTITY STORY</span>
             <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '3rem', fontWeight: 500, letterSpacing: '0.02em', textTransform: 'uppercase' }}>
-              THE PERSON BEHIND THE WORK.
+              THE PERSON BEHIND THE WORK
             </h3>
           </div>
 
@@ -108,73 +107,15 @@ export const About: React.FC = () => {
               fontWeight: 300
             }}
           >
-            I am driven to combine technology, analytical business thinking, and visual storytelling to craft practical digital solutions. From software platforms and databases to videography, editing, and direction, I explore cross-disciplinary paths to bridge corporate strategies with modern developer tools.
+            I’m passionate about understanding how businesses work, identifying real-world challenges, and using technology to create practical solutions.
           </p>
 
           <div style={{ display: 'flex', gap: '12px', marginTop: '10px' }}>
             <Quote size={20} style={{ color: 'var(--accent-pink)', flexShrink: 0 }} />
             <span style={{ fontStyle: 'italic', color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: 1.6 }}>
-              "Creativity meets technology. I believe a solution is only as powerful as the strategic business problem it resolves, and the story it communicates."
+              Where business meets technology, I find opportunities to solve problems, create value, and turn ideas into impact.
             </span>
           </div>
-        </div>
-      </div>
-
-      {/* Section 23: Personality Statement */}
-      <div
-        className="glass"
-        style={{
-          width: '100%',
-          borderRadius: '20px',
-          padding: '50px 8%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          textAlign: 'center',
-          gap: '24px',
-          marginTop: '30px'
-        }}
-      >
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-          <h2
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(2.2rem, 5vw, 4rem)',
-              fontWeight: 300,
-              letterSpacing: '0.05em',
-              textTransform: 'uppercase',
-              color: 'var(--text-primary)',
-              lineHeight: 1.1
-            }}
-          >
-            CURIOUS <span style={{ color: 'var(--accent-pink)', fontWeight: 500 }}>BY NATURE</span>.
-          </h2>
-          <h2
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(2.2rem, 5vw, 4rem)',
-              fontWeight: 300,
-              letterSpacing: '0.05em',
-              textTransform: 'uppercase',
-              color: 'var(--text-primary)',
-              lineHeight: 1.1
-            }}
-          >
-            CREATIVE <span style={{ color: 'var(--text-primary)', fontWeight: 500 }}>BY INSTINCT</span>.
-          </h2>
-          <h2
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: 'clamp(2.2rem, 5vw, 4rem)',
-              fontWeight: 300,
-              letterSpacing: '0.05em',
-              textTransform: 'uppercase',
-              color: 'var(--accent-cyan)',
-              lineHeight: 1.1
-            }}
-          >
-            TECHNICAL <span style={{ color: 'var(--accent-purple)', fontWeight: 500 }}>BY CHOICE</span>.
-          </h2>
         </div>
       </div>
 

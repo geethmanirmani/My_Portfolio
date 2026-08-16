@@ -10,8 +10,47 @@ interface SoftwareWorldProps {
 
 export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const isMouseDown = useRef(false);
+  const startX = useRef(0);
+  const scrollLeftPos = useRef(0);
 
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
 
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        el.scrollLeft += e.deltaY * 1.5;
+      }
+    };
+
+    el.addEventListener('wheel', handleWheel, { passive: false });
+    return () => el.removeEventListener('wheel', handleWheel);
+  }, []);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isMouseDown.current = true;
+    if (scrollRef.current) {
+      startX.current = e.pageX - scrollRef.current.offsetLeft;
+      scrollLeftPos.current = scrollRef.current.scrollLeft;
+    }
+  };
+
+  const handleMouseLeave = () => {
+    isMouseDown.current = false;
+  };
+
+  const handleMouseUp = () => {
+    isMouseDown.current = false;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDown.current || !scrollRef.current) return;
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5;
+    scrollRef.current.scrollLeft = scrollLeftPos.current - walk;
+  };
 
   return (
     <section
@@ -26,18 +65,18 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
         position: 'relative'
       }}
     >
-      <div 
-        className="ambient-glow" 
-        style={{ 
+      <div
+        className="ambient-glow"
+        style={{
           background: 'radial-gradient(circle, rgba(201,168,118,0.06) 0%, transparent 60%)',
           top: '20%',
           right: '5%'
-        }} 
+        }}
       />
 
       {/* Header Statement */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '800px' }}>
-        <span style={{ fontSize: '0.8rem', letterSpacing: '0.3em', color: 'var(--accent-gold)', fontWeight: 700 }}>04 — SOFTWARE DEVELOPMENT</span>
+        <span style={{ fontSize: '0.8rem', letterSpacing: '0.3em', color: 'var(--accent-gold)', fontWeight: 700 }}>03 — SOFTWARE DEVELOPMENT</span>
         <h2
           style={{
             fontFamily: 'var(--font-heading)',
@@ -48,19 +87,8 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
             textTransform: 'uppercase'
           }}
         >
-          BUILT<br />WITH CODE.
+          BEYOND THE SCREEN
         </h2>
-        <p
-          style={{
-            fontSize: '1.15rem',
-            lineHeight: 1.6,
-            color: 'var(--text-secondary)',
-            fontWeight: 300,
-            marginTop: '10px'
-          }}
-        >
-          Technology is another way I express ideas. From software systems to small experiments, I enjoy turning problems into practical digital solutions.
-        </p>
       </div>
 
       {/* Horizontal Scroll Track Header */}
@@ -69,20 +97,23 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
           SOFTWARE PROJECTS
         </h3>
         <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-          Use Mousewheel / Scroll Horizontally →
+          Scroll with Mouse Wheel or Drag ← →
         </span>
       </div>
 
       {/* Software Projects Horizontal Scroll Container */}
       <div
         ref={scrollRef}
+        onMouseDown={handleMouseDown}
+        onMouseLeave={handleMouseLeave}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
         style={{
           display: 'flex',
           gap: '40px',
           overflowX: 'auto',
           paddingBottom: '30px',
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none'
+          cursor: 'grab'
         }}
         className="hide-scrollbar"
       >
@@ -93,9 +124,9 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
             style={{
               flex: '0 0 450px',
               maxWidth: '90vw',
-              height: '420px',
+              height: '500px',
               borderRadius: '16px',
-              padding: '40px',
+              padding: '32px',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
@@ -110,6 +141,7 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
               willChange: 'transform'
             }}
             onMouseMove={(e) => {
+              if (isMouseDown.current) return;
               const el = e.currentTarget as HTMLElement;
               const rect = el.getBoundingClientRect();
               const x = e.clientX - rect.left;
@@ -118,7 +150,7 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
               const yc = rect.height / 2;
               const rotX = (yc - y) / 10;
               const rotY = (x - xc) / 10;
-              
+
               el.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg) scale3d(1.01, 1.01, 1.01)`;
               el.style.borderColor = 'var(--accent-pink)';
               el.style.boxShadow = '0 15px 35px rgba(255, 0, 122, 0.08)';
@@ -173,7 +205,7 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
               >
                 0{project.id}
               </span>
-              
+
               <span
                 style={{
                   fontSize: '0.6rem',
@@ -213,11 +245,34 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
                   lineHeight: 1.5,
                   color: 'var(--text-secondary)',
                   fontWeight: 300,
-                  marginTop: '6px'
+                  marginTop: '4px'
                 }}
               >
                 {project.description.slice(0, 110)}...
               </p>
+
+              {project.images && project.images.length > 0 && (
+                <div
+                  style={{
+                    width: '100%',
+                    height: '130px',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    marginTop: '8px',
+                    border: '1px solid var(--border-glass)'
+                  }}
+                >
+                  <img
+                    src={project.images[0]}
+                    alt={project.title}
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover'
+                    }}
+                  />
+                </div>
+              )}
             </div>
 
             {/* Bottom Card */}
@@ -237,13 +292,13 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
                   </span>
                 ))}
               </div>
-              <div 
-                style={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: '6px', 
-                  fontSize: '0.8rem', 
-                  fontWeight: 700, 
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  fontSize: '0.8rem',
+                  fontWeight: 700,
                   color: 'var(--text-primary)',
                   letterSpacing: '0.1em'
                 }}

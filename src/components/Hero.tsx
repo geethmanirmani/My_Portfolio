@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
-import profileImg from '../assets/profile.png';
+import profileImg from '../assets/profile.jpg';
 
 interface HeroProps {
   onEnter: () => void;
@@ -181,7 +181,10 @@ export const Hero: React.FC<HeroProps> = ({ onEnter }) => {
               style={{
                 width: '100%',
                 height: '100%',
-                objectFit: 'cover'
+                objectFit: 'cover',
+                objectPosition: 'center 12%',
+                transform: 'scale(1.35)',
+                transformOrigin: 'center 12%'
               }}
             />
           </div>

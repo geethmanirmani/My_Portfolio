@@ -13,45 +13,39 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
   const menuItems = [
     { label: 'HOME', id: 'home' },
     { label: 'ABOUT', id: 'about' },
-    { label: 'CREATIVE', id: 'creative' },
-    { label: 'SOFTWARE', id: 'software' },
-    { label: 'EXPERIENCE', id: 'experience' },
+    { label: 'PROJECTS', id: 'software' },
+    { label: 'SKILLS & EXPERIENCE', id: 'experience' },
     { label: 'CONTACT', id: 'contact' }
   ];
 
   useEffect(() => {
-    const observerOptions = {
-      root: null,
-      rootMargin: '-35% 0px -55% 0px', // Trigger when section crosses middle third of viewport
-      threshold: 0
-    };
+    const sections = ['home', 'about', 'software', 'businesstech', 'experience', 'contact'];
 
-    const observerCallback = (entries: IntersectionObserverEntry[]) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // If experience-timeline is visible, treat as experience
-          if (entry.target.id === 'experience-timeline') {
-            setActiveSection('experience');
-          } else {
-            setActiveSection(entry.target.id);
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 250; // Offset for fixed navbar
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const sectionId = sections[i];
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const top = element.offsetTop;
+          if (scrollPosition >= top) {
+            if (sectionId === 'businesstech') {
+              setActiveSection('experience');
+            } else {
+              setActiveSection(sectionId);
+            }
+            break;
           }
         }
-      });
+      }
     };
 
-    const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    const sections = ['home', 'about', 'creative', 'software', 'experience', 'experience-timeline', 'contact'];
-    sections.forEach((id) => {
-      const element = document.getElementById(id);
-      if (element) observer.observe(element);
-    });
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
 
     return () => {
-      sections.forEach((id) => {
-        const element = document.getElementById(id);
-        if (element) observer.unobserve(element);
-      });
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

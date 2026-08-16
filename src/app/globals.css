@@ -91,6 +91,17 @@ html, body {
   -webkit-text-fill-color: transparent;
 }
 
+/* Hide Scrollbar Utilities */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
 /* Page Section Defaults */
 section {
   position: relative;
