@@ -36,7 +36,7 @@ export const softwareProjects: SoftwareProject[] = [
     ],
     status: "COMPLETED PROJECT",
     accentColor: "linear-gradient(135deg, #10b981 0%, #3b82f6 100%)",
-    githubUrl: "https://github.com/geethmanirmani",
+    githubUrl: "https://lnkd.in/g744PZzv",
     images: [
       "/projects/neuromatch.jpg"
     ]
@@ -66,7 +66,7 @@ export const softwareProjects: SoftwareProject[] = [
     ],
     status: "COMPLETED ACADEMIC PROJECT",
     accentColor: "linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%)",
-    githubUrl: "https://github.com/geethmanirmani",
+    githubUrl: "https://lnkd.in/gu_MBsUM",
     images: [
       "/projects/store-login.jpg",
       "/projects/store-billing.jpg",
