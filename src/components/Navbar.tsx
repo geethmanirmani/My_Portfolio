@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Download } from 'lucide-react';
+import { getAssetPath } from '../utils/assetPath';
 
 interface NavbarProps {
   onNavigate: (sectionId: string) => void;
@@ -145,7 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
         {/* Right Side: Download CV Button - Desktop Only */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }} className="nav-right">
           <a
-            href="/resume.pdf"
+            href={getAssetPath('/resume.pdf')}
             download="Geethma_Nirmani_Resume.pdf"
             style={{
               textDecoration: 'none',

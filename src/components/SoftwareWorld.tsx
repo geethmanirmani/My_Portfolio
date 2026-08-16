@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from 'react';
 import { softwareProjects } from '../data/softwareProjects';
 import type { SoftwareProject } from '../data/softwareProjects';
 import { ArrowRight } from 'lucide-react';
+import { getAssetPath } from '../utils/assetPath';
 
 interface SoftwareWorldProps {
   onSelectProject: (project: SoftwareProject) => void;
@@ -263,7 +264,7 @@ export const SoftwareWorld: React.FC<SoftwareWorldProps> = ({ onSelectProject })
                   }}
                 >
                   <img
-                    src={project.images[0]}
+                    src={getAssetPath(project.images[0])}
                     alt={project.title}
                     style={{
                       width: '100%',

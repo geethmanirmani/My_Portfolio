@@ -1,5 +1,6 @@
 import React from 'react';
 import { Calendar, Award } from 'lucide-react';
+import { getAssetPath } from '../utils/assetPath';
 
 export const EducationExperience: React.FC = () => {
   const educationTimeline = [
@@ -163,13 +164,13 @@ export const EducationExperience: React.FC = () => {
                 >
                   {/* Certificate Image Preview */}
                   <a 
-                    href={cert.image} 
+                    href={getAssetPath(cert.image)} 
                     target="_blank" 
                     rel="noopener noreferrer" 
                     style={{ display: 'block', overflow: 'hidden', height: '145px', background: 'rgba(0,0,0,0.3)', position: 'relative' }}
                   >
                     <img 
-                      src={cert.image} 
+                      src={getAssetPath(cert.image)} 
                       alt={cert.title}
                       style={{
                         width: '100%',

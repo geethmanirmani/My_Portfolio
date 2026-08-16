@@ -2,6 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import type { SoftwareProject } from '../data/softwareProjects';
 import { X, CheckCircle, Cpu, FileText, Layers, ExternalLink, Image as ImageIcon } from 'lucide-react';
+import { getAssetPath } from '../utils/assetPath';
 
 interface ProjectDetailOverlayProps {
   project: SoftwareProject | null;
@@ -211,7 +212,7 @@ export const ProjectDetailOverlay: React.FC<ProjectDetailOverlayProps> = ({ proj
                   {project.images.map((imgSrc, idx) => (
                     <a
                       key={idx}
-                      href={imgSrc}
+                      href={getAssetPath(imgSrc)}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="glass"
@@ -235,7 +236,7 @@ export const ProjectDetailOverlay: React.FC<ProjectDetailOverlayProps> = ({ proj
                       }}
                     >
                       <img
-                        src={imgSrc}
+                        src={getAssetPath(imgSrc)}
                         alt={`${project.title} Screenshot ${idx + 1}`}
                         style={{
                           width: '100%',
